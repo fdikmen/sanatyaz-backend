@@ -1,0 +1,178 @@
+﻿@using proje.UI.Models
+@model ViewModel
+@{
+    ViewData["Title"] = "Menu";
+}
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <a type="button" href="/Menu/Create" class="btn btn-info"><i class="fas fa-plus"></i>  Yeni Kayıt</a>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/">Anasayfa</a></li>
+                        <li class="breadcrumb-item active">Menu</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <!-- Main row -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-info">
+                        <div class="card-header">
+                            <h3 class="card-title">Menu</h3>
+
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body p-0" style="display: block;">
+                            <div class="table-responsive-md">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Menu Adı</th>
+                                            <th>Resim</th>
+                                            <th>Anasayfada Göster/Gösterme</th>
+                                            <th>Aktif/Pasif</th>
+                                            <th>Order</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.Menus)
+                                        {
+                                            <tr>
+                                                <td>@item.menuName</td>
+                                                @if (item.imageUrl != null)
+                                                {
+                                                    <td><div class="product-img"><img src="@item.imageUrl" alt="Image" class="img-size-32"></div></td>
+                                                }
+                                                else
+                                                {
+                                                    <td>-</td>
+                                                }
+                                                @if (item.GetHomepage == true)
+                                                {
+                                                    <td>
+                                                        <div class="btn-group btn-group-sm">
+                                                            <a href="/Menu/GetHomepage/@item.Id" class="btn btn-success"><i class="fas fa-check"></i></a>
+                                                        </div>
+                                                    </td>
+                                                }
+                                                else
+                                                {
+                                                    <td>
+                                                        <div class="btn-group btn-group-sm">
+                                                            <a href="/Menu/GetHomepage/@item.Id" class="btn btn-danger"><i class="fas fa-times-circle"></i></a>
+                                                        </div>
+                                                    </td>
+                                                }
+                                                @if (item.isActive == true)
+                                                {
+                                                    <td>
+                                                        <div class="btn-group btn-group-sm">
+                                                            <a href="/Menu/Active/@item.Id" class="btn btn-success"><i class="fas fa-check"></i></a>
+                                                        </div>
+                                                    </td>
+                                                }
+                                                else
+                                                {
+                                                    <td>
+                                                        <div class="btn-group btn-group-sm">
+                                                            <a href="/Menu/Active/@item.Id" class="btn btn-danger"><i class="fas fa-times-circle"></i></a>
+                                                        </div>
+                                                    </td>
+                                                }
+
+                                                <td>
+                                                    @item.Order
+                                                </td>
+
+                                                <td>
+                                                    <div class="btn-group btn-group-sm">
+                                                        <a href="/Menu/ImageUpload/@item.Id" class="btn btn-info"><i class="fas fa-upload"></i> Resim Yükle</a>
+                                                    </div>
+                                                </td>
+
+                                                <td class="text-right py-0 align-middle">
+                                                    <div class="btn-group btn-group-sm">
+                                                        <a href="/Menu/Update/@item.Id" class="btn btn-info"><i class="fas fa-eye"></i></a>
+                                                        <a href="/Menu/Delete/@item.Id" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <hr />
+                <h4>Üst Menü</h4>
+                <hr />
+            </div>
+
+            <div class="row">
+                @foreach (var item1 in Model.Menus)
+                {
+                    @if (item1.mainMenu == null)
+                    {
+                        <div class="col-md-3">
+                            <div class="card card-outline card-primary collapsed-card">
+                                <div class="card-header">
+                                    <h3 class="card-title">@item1.menuName</h3>
+
+                                    <div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                            <i class="fas fa-plus"></i>
+                                        </button>
+                                    </div>
+                                    <!-- /.card-tools -->
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body" style="display: none;">
+                                    @foreach (var item2 in Model.Menus)
+                                    {
+
+                                        @if (item1.Id == item2.mainMenuId)
+                                        {
+                                            <p>@item2.menuName</p>
+                                        }
+
+                                    }
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                    }
+                }
+            </div>
+
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+<!-- Control Sidebar -->
+<aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+</aside>
+<!-- /.control-sidebar -->

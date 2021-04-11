@@ -1,0 +1,125 @@
+﻿@using proje.Entities
+@model ViewModel
+@{
+    ViewData["Title"] = "Menu";
+}
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">Menu</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/">Anasayfa</a></li>
+                        <li class="breadcrumb-item active">Menu</li>
+                        <li class="breadcrumb-item active">Resim Yükle</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+
+            @if (TempData.Count != 0)
+            {
+                <div class="row">
+                    <div class="alert alert-success alert-dismissible fade show col-md-12" role="alert">
+                        <strong>@TempData["Mesaj"]</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+
+            }
+
+            <!-- Main row -->
+            <div class="row">
+                <!-- Left col -->
+                <div class="col-md-12">
+                    <!-- About Create -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Oluştur</h3>
+
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body p-0">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <form asp-action="ImageUpload" enctype="multipart/form-data" method="post" class="dropzone">
+
+                                            <div class="fallback">
+                                                <label></label>
+                                                <input type="file" name="file" multiple />
+                                                <input type="submit" value="kaydet" />
+                                            </div>
+                                        </form>
+                                        <label></label>
+                                        <label></label>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        @if (Model.Menu.imageUrl != null)
+                                        {
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <div class="product-img"><img src="@Model.Menu.imageUrl" alt="Image" style="width:150px; height:150px;"></div>
+                                                    </td>
+                                                    <td>
+                                                        <a href="/Menu/DeleteImage/@Model.Menu.Id" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        }
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+            </div>
+
+            <label></label>
+            @if (TempData.Count != 0)
+            {
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>@TempData["Mesaj"]</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            }
+
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+<!-- Control Sidebar -->
+<aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+</aside>
+<!-- /.control-sidebar -->

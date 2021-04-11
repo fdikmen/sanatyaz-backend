@@ -1,0 +1,135 @@
+﻿@using proje.Entities
+@model ViewModel
+@{
+    ViewData["Title"] = "About";
+}
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <a type="button" href="/Form/FormElementItem" class="btn btn-info"><i class="fas fa-plus"></i>  Form Eleman Öğe Ekle</a>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/">Anasayfa</a></li>
+                        <li class="breadcrumb-item active">Form</li>
+                        <li class="breadcrumb-item active">Oluştur</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+
+            @if (TempData.Count != 0)
+            {
+                <div class="row">
+                    <div class="alert alert-success alert-dismissible fade show col-md-12" role="alert">
+                        <strong>@TempData["Mesaj"]</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+
+            }
+
+            <!-- Main row -->
+            <div class="row">
+                <!-- Left col -->
+                <div class="col-md-12">
+                    <!-- About Create -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Oluştur</h3>
+
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body p-0">
+                            <div style="margin:40px;">
+                                <form asp-action="FormElement">
+                                    <div class="form-row">
+
+                                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                        <div class="form-group col-md-6">
+                                            <label>Form Eleman Adı</label>
+                                            <input asp-for="FormElement.Text" type="text" class="form-control" placeholder="">
+                                            <span asp-validation-for="FormElement.Text" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>Sıra Numarası</label>
+                                            <input asp-for="FormElement.Order" type="number" class="form-control" placeholder="">
+                                            <span asp-validation-for="FormElement.Order" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="form-check">
+                                            <input asp-for="FormElement.isRequired" type="checkbox" class="form-check-input" id="exampleCheck1">
+                                            <label class="form-check-label" for="exampleCheck1">isRequired</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Form Tipi</label>
+                                        <select asp-for="FormElement.Type" class="form-control">
+                                            <option>Input</option>
+                                            <option>Dropdown</option>
+                                            <option>RadioButton</option>
+                                            <option>Textarea</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Form</label>
+                                        <select asp-for="FormElement.FormId" class="form-control">
+                                            <option value="null">Form Seçiniz</option>
+                                            @if (Model.Forms != null)
+                                            {
+                                                @foreach (var item in Model.Forms)
+                                                {
+                                                    <option value="@item.Id">@item.Title</option>
+                                                }
+                                            }
+
+                                        </select>
+                                    </div>
+                                    @Html.HiddenFor(m => m.FormElement.Id)
+                                    <button type="submit" value="Create" class="btn btn-primary">Kaydet</button>
+
+                                </form>
+                                <label></label>
+                                <label></label>
+                            </div>
+                        </div>
+
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+            </div>
+
+            
+
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+<!-- Control Sidebar -->
+<aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+</aside>
+<!-- /.control-sidebar -->

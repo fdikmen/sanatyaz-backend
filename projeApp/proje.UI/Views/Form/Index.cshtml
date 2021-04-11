@@ -1,0 +1,270 @@
+﻿@using proje.UI.Models
+@model ViewModel
+@{
+    ViewData["Title"] = "Form";
+
+
+}
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <a type="button" href="/Form/FormCreate" class="btn btn-info"><i class="fas fa-plus"></i>  Yeni Kayıt</a>
+                    <a type="button" href="/Form/FormElement" class="btn btn-info"><i class="fas fa-plus"></i>  Form Eleman Kayıt</a>
+                    <a type="button" href="/Form/FormElementItem" class="btn btn-info"><i class="fas fa-plus"></i>  Form Elaman Öge Kaydı</a>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/">Anasayfa</a></li>
+                        <li class="breadcrumb-item active">Form</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+
+            @if (TempData.Count != 0)
+            {
+                <div class="row">
+                    <div class="alert alert-success alert-dismissible fade show col-md-12" role="alert">
+                        <strong>@TempData["Mesaj"]</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+
+            }
+
+
+            <!-- Main row -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-info">
+                        <div class="card-header">
+                            <h3 class="card-title">Form</h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body p-0" style="display: block;">
+                            @if (Model.Forms != null)
+                            {
+                                <div class="table-responsive-md">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Başlık</th>
+                                                <th>İçerik</th>
+                                                <th>Aktif/Pasif</th>
+                                                <th>Başlangıç Tarihi</th>
+                                                <th>Bitiş Tarihi</th>
+                                                <th>Kayıt Tarihi</th>
+                                                <th></th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model.Forms)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        <span class="d-inline-block text-truncate" style="max-width: 150px;">
+                                                            @item.Title
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="d-inline-block text-truncate" style="max-width: 150px;">
+                                                            @item.Content
+                                                        </span>
+                                                    </td>
+                                                    @if (item.isActive == true)
+                                                    {
+                                                        <td>
+                                                            <div class="btn-group btn-group-sm">
+                                                                <a href="/Form/Active/@item.Id" class="btn btn-success"><i class="fas fa-check"></i></a>
+                                                            </div>
+                                                        </td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td>
+                                                            <div class="btn-group btn-group-sm">
+                                                                <a href="/Form/Active/@item.Id" class="btn btn-danger"><i class="fas fa-times-circle"></i></a>
+                                                            </div>
+                                                        </td>
+                                                    }
+                                                    <td>@item.ReleaseDate.ToShortDateString()</td>
+                                                    <td>@item.TheEndDate.ToShortDateString()</td>
+                                                    <td>@item.AddedDate.ToShortDateString()</td>
+                                                    <td class="text-right py-0 align-middle">
+                                                        <div class="btn-group btn-group-sm">
+                                                            <a href="/Form/Update/@item.Id" class="btn btn-info"><i class="fas fa-eye"></i></a>
+                                                            <a href="/Form/Delete/@item.Id" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            }
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                </div>
+            </div>
+
+            @foreach (var form in Model.Forms)
+            {
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card card-info">
+                            <div class="card-header">
+                                <h3 class="card-title">@form.Title</h3>
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="card-body p-0" style="display: block;">
+                                <div class="container">
+
+                                    <div class="table-responsive-md">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th></th>
+                                                    <th>KİMLİK</th>
+                                                    @{
+                                                        var sortLst=Model.FormElements.OrderBy(o => o.Order);
+                                                        
+                                                    }
+
+                                                    @foreach (var fe in sortLst)
+                                                    {
+                                                        @if (form.Id == fe.FormId)
+                                                        {
+                                                            <th>
+                                                                <span class="d-inline-block text-truncate" style="max-width: 150px;">
+                                                                    @fe.Text.ToUpper()
+                                                                </span>
+                                                            </th>
+                                                        }
+                                                    }
+
+
+
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                                @{
+                                                    List<string> lst = new List<string>();
+                                                    int i = 0;
+                                                    int sayac = 1;
+                                                    
+                                                }
+
+                                                @foreach (var item in Model.FormArchives)
+                                                {
+                                                    sayac = 1;
+
+                                                    @foreach (var item2 in lst)
+                                                    {
+                                                        @if (item.FormGuid == item2)
+                                                        {
+                                                            sayac++;
+                                                        }
+                                                    }
+                                                    @if (sayac == 1)
+                                                    {
+
+                                                        lst.Add(item.FormGuid);
+                                                    }
+                                                }
+
+                                                @{
+                                                    int a = 0;
+                                                }
+
+
+                                                @foreach (var liste in lst)
+                                                {
+                                                    a = 0;
+                                                    <tr>
+                                                        @foreach (var fe in Model.FormElements)
+                                                        {
+                                                            @if (form.Id == fe.FormId)
+                                                            {
+
+                                                                @foreach (var formA in Model.FormArchives)
+                                                                {
+                                                                    @if (liste == formA.FormGuid && fe.Id == formA.FormElementId)
+                                                                    {
+
+
+                                                                        if (a == 0)
+                                                                        {
+                                                                            <td><a href="/Form/FormArchiveDelete/@formA.Id" class="btn btn-default"><i class="far fa-trash-alt"></i> Sil</a></td>
+
+                                                                            <td>
+                                                                                <span class="d-inline-block text-truncate" style="max-width: 150px;">
+                                                                                    @liste
+                                                                                </span>
+                                                                            </td>
+                                                                            a++;
+                                                                        }
+                                                                        <td>
+                                                                            <span class="d-inline-block text-truncate" style="max-width: 150px;">
+                                                                                @formA.Content
+                                                                            </span>
+                                                                        </td>
+
+
+                                                                    }
+                                                                }
+                                                            }
+
+                                                        }
+
+
+                                                    </tr>
+                                                }
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                    </div>
+                </div>
+
+            }
+
+
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+<!-- Control Sidebar -->
+<aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+</aside>
+<!-- /.control-sidebar -->

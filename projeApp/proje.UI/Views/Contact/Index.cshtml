@@ -1,0 +1,107 @@
+﻿@using proje.UI.Models
+@model ViewModel
+@{
+    ViewData["Title"] = "İletişim";
+}
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    @*<a type="button" href="/About/Create" class="btn btn-info"><i class="fas fa-plus"></i> Yeni Kayıt</a>*@
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/">Anasayfa</a></li>
+                        <li class="breadcrumb-item active">İletişim</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <!-- Main row -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-info">
+                        <div class="card-header">
+                            <h3 class="card-title">İletişim</h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body p-0" style="display: block;">
+                            @if (Model.Contacts != null)
+                            {
+                                <div class="table-responsive-md">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Ad</th>
+                                                <th>Soyad</th>
+                                                <th>E-Mail</th>
+                                                <th>Mesaj</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model.Contacts)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        <span class="d-inline-block text-truncate" style="max-width: 150px;">
+                                                            @item.Name
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="d-inline-block text-truncate" style="max-width: 150px;">
+                                                            @item.Surname
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="d-inline-block text-truncate" style="max-width: 150px;">
+                                                            @item.Email
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="d-inline-block text-truncate" style="max-width: 150px;">
+                                                            @item.Text
+                                                        </span>
+                                                    </td>                                                   
+
+                                                    <td class="text-right py-0 align-middle">
+                                                        <div class="btn-group btn-group-sm">
+                                                            <a href="/Contact/Read/@item.Id" class="btn btn-info"><i class="fas fa-eye"></i></a>
+                                                            <a href="/Contact/Delete/@item.Id" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            }
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+<!-- Control Sidebar -->
+<aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+</aside>
+<!-- /.control-sidebar -->

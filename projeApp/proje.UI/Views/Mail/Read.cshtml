@@ -1,0 +1,162 @@
+﻿@using proje.UI.Models
+@model ViewModel
+@{
+    ViewData["Title"] = "Mail";
+}
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/">Anasayfa</a></li>
+                        <li class="breadcrumb-item active"></li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+
+            @if (TempData.Count != 0)
+            {
+                <div class="row">
+                    <div class="alert alert-success alert-dismissible fade show col-md-12" role="alert">
+                        <strong>@TempData["Mesaj"]</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+
+            }
+
+            <div class="row">
+                <div class="col-md-3">
+                    <a href="/Mail/Inbox" class="btn btn-primary btn-block mb-3">Gönderilen Mesajlar</a>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Dosyalar</h3>
+
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body p-0">
+                            <ul class="nav nav-pills flex-column">
+                                <li class="nav-item active">
+                                    <a href="/Mail/Inbox" class="nav-link">
+                                        <i class="fas fa-inbox"></i> Gönderilen Mesajar
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/Mail/Create" class="nav-link">
+                                        <i class="far fa-envelope"></i> Mesaj Gönder
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/Mail/Ebulten" class="nav-link">
+                                        <i class="far fa-file-alt"></i> E-Bülten
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+
+                </div>
+                <!-- /.col -->
+                <div class="col-md-9">
+                    <div class="card card-primary card-outline">
+                        <div class="card-header">
+                            <h3 class="card-title">Mail</h3>
+
+                            <div class="card-tools">
+                                @{
+
+                                    int ek = 1;
+                                    int eb = 0;
+                                    foreach (var item in Model.Mails)
+                                    {
+
+                                        eb++;
+                                    }
+
+                                    int n = 1;
+                                    int p = 1;
+                                    if (Model.Mail.Id < eb)
+                                    {
+                                        n = n + Model.Mail.Id;
+                                    }
+                                    if (Model.Mail.Id > ek)
+                                    {
+                                        p = Model.Mail.Id - p;
+                                    }
+                                } 
+                                <a href="/Mail/Read/@p" class="btn btn-tool" data-toggle="tooltip" title="Previous"><i class="fas fa-chevron-left"></i></a>
+                                <a href="/Mail/Read/@n" class="btn btn-tool" data-toggle="tooltip" title="Next"><i class="fas fa-chevron-right"></i></a>
+                            </div>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body p-0">
+                            <div class="mailbox-read-info">
+                                <h5>@Model.Mail.Subject</h5>
+
+                                @if (Model.Mail.Email != null)
+                                {
+                                    <h6>
+                                        Gönderilen: @Model.Mail.Email
+                                        <span class="mailbox-read-time float-right">@Model.Mail.AddDateTime.ToUniversalTime()</span>
+                                    </h6>
+                                }
+                                else
+                                {
+                                    <h6>
+                                        Gönderilen: Toplu Mail
+                                        <span class="mailbox-read-time float-right">@Model.Mail.AddDateTime.ToUniversalTime()</span>
+                                    </h6>
+                                }
+
+
+
+                            </div>
+                            <!-- /.mailbox-read-info -->
+                            <div class="mailbox-controls with-border text-center">
+                                
+                            </div>
+                            <!-- /.mailbox-controls -->
+                            <div class="mailbox-read-message">
+                                @Html.Raw(Model.Mail.Message)
+                            </div>
+                            <!-- /.mailbox-read-message -->
+                        </div>
+                        <!-- /.card-body -->
+                        
+                        <!-- /.card-footer -->
+                        <div class="card-footer">                            
+                            <a href="/Mail/MailDelete/@Model.Mail.Id" class="btn btn-default"><i class="far fa-trash-alt"></i> Sil</a>
+                        </div>
+                        <!-- /.card-footer -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.row -->
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->

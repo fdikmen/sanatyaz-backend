@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>proje.API</name>
+    </assembly>
+    <members>
+        <member name="M:proje.API.Controllers.MenuController.Get">
+            <summary>
+            Get All Menus
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:proje.API.Controllers.MenuController.GetMenuById(System.Int32)">
+            <summary>
+            Get Menu By Id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:proje.API.Controllers.MenuController.Post(proje.Entities.Menu)">
+            <summary>
+            Create an Menu
+            </summary>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:proje.API.Controllers.MenuController.Update(proje.Entities.Menu)">
+            <summary>
+            Update the Menu
+            </summary>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:proje.API.Controllers.MenuController.Delete(System.Int32)">
+            <summary>
+            Delete the Menu
+            </summary>
+            <param name="id"></param>
+        </member>
+    </members>
+</doc>

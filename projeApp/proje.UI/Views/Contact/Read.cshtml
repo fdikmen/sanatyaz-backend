@@ -1,0 +1,96 @@
+﻿@using proje.UI.Models
+@model ViewModel
+@{
+    ViewData["Title"] = "Mail";
+}
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/">Anasayfa</a></li>
+                        <li class="breadcrumb-item active">İletişim</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+
+            @if (TempData.Count != 0)
+            {
+                <div class="row">
+                    <div class="alert alert-success alert-dismissible fade show col-md-12" role="alert">
+                        <strong>@TempData["Mesaj"]</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+
+            }
+
+            <div class="row">
+                
+                <!-- /.col -->
+                <div class="col-md-12">
+                    <div class="card card-primary card-outline">
+                        <div class="card-header">
+                            <h3 class="card-title">İletişim</h3>
+
+                            
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body p-0">
+                            <div class="mailbox-read-info">
+                                <h5>@Model.Contact.Name @Model.Contact.Surname</h5>
+
+                               
+                                    <h6>
+                                        @*Mail: @Model.Contact.Email*@
+                                        @*<span class="mailbox-read-time float-right">@Model.Contact.</span>*@
+                                    </h6>
+                               
+                                    <h6>
+                                        Mail: @Model.Contact.Email
+                                        @*<span class="mailbox-read-time float-right">@Model.Mail.AddDateTime.ToUniversalTime()</span>*@
+                                    </h6>
+                               
+
+
+
+                            </div>
+                            <!-- /.mailbox-read-info -->
+                            <div class="mailbox-controls with-border text-center">
+
+                            </div>
+                            <!-- /.mailbox-controls -->
+                            <div class="mailbox-read-message">
+                                @Model.Contact.Text
+                            </div>
+                            <!-- /.mailbox-read-message -->
+                        </div>
+                        <!-- /.card-body -->
+                        <!-- /.card-footer -->
+                        <div class="card-footer">
+                        </div>
+                        <!-- /.card-footer -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.row -->
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
