@@ -11,7 +11,8 @@ namespace proje.DataAccess
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseMySql("Server=5.2.81.126; Database=toflabsc_service; uid=tofla_service; pwd=z69ks&4V;");                       
+            //optionsBuilder.UseMySql("Server=5.2.81.126; Database=toflabsc_service; uid=tofla_service; pwd=z69ks&4V;");
+            optionsBuilder.UseMySql("Server=188.132.243.237;port=30132; Database=sanatyazdb; uid=sanatyazUser; pwd=JayJayOkocha-10;");
 
         }
 
